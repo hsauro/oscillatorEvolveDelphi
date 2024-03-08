@@ -71,6 +71,7 @@ var
    default_showOutput : boolean = False;   // Shows additional runtime information if true
    default_savePopulationData : boolean = False;
    default_savePopulationFilename : string = '';   // Filename where program can dump all information about the population over time
+   default_waitForKeyPress : boolean = False;
 
    saveFitnessValuesToFile : boolean = False;
    intervalForOutput  : integer = 10;
