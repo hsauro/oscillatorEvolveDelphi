@@ -166,6 +166,7 @@ begin
   writeln (' -res value Specify the name of the results directory');
   writeln (' -v Make output more verbose');
   writeln (' -pop filename Output data to the file filename that describes the species distriution over generations');
+  writeln (' -w Wait for the user to hit a key to exit program');
 end;
 
 
@@ -398,6 +399,8 @@ begin
     Parser.AddArgument ('-v', saBool);
     Parser.AddArgument ('-pop', saStore);
 
+    Parser.AddArgument ('-w', saBool);
+
     ParseResult := Parser.ParseArgs;
     try
       if ParseResult.HasArgument('h') then
@@ -439,6 +442,10 @@ begin
       if ParseResult.HasArgument('v') then
          begin
          default_showOutput := True;
+         end;
+      if ParseResult.HasArgument('w') then
+         begin
+         default_waitForKeyPress := True;
          end;
       if ParseResult.HasArgument('pop') then
          begin
@@ -517,8 +524,11 @@ begin
 
     writeln ('Time taken in hours, minutes and seconds: ', FormatDateTime('hh:nn:ss',sw.ElapsedMilliseconds/MSecsPerDay));
 
-    //writeln ('Done. Hit any key to continue');
-    //readln;
+    if default_waitForKeyPress then
+       begin
+       writeln ('Done. Hit any key to continue');
+       readln;
+       end;
   except
     on E: Exception do
       begin
